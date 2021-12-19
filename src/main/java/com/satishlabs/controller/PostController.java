@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -43,4 +45,21 @@ public class PostController {
 		
 		return new ResponseEntity<PostDto>(postResponse,HttpStatus.CREATED);
 	}
+	
+	@PutMapping("/updatePost/{id}")
+	public ResponseEntity<PostDto> updatePost(@PathVariable long id,@RequestBody PostDto postDto){
+		
+		//Convert DTO to entity
+		Post postRequest = modelMapper.map(postDto, Post.class);
+		
+		Post post = postService.updatePost(id, postRequest);
+		
+		//Entity to DTO
+		
+		PostDto postResponse = modelMapper.map(post, PostDto.class);
+		
+		return ResponseEntity.ok().body(postResponse);
+		
+	}
+	
 }
