@@ -1,6 +1,7 @@
 package com.satishlabs.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,25 @@ public class PostServiceImpl implements PostService{
 		post.setDescription(postRequest.getDescription());
 		post.setContent(postRequest.getContent());
 		return postRepository.save(post);
+	}
+
+	@Override
+	public void deletePost(long id) {
+		Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+		postRepository.delete(post);
+	}
+
+	@Override
+	public Post getPostById(long id) {
+		Optional<Post> result = postRepository.findById(id);
+		if(result.isPresent()) {
+			return result.get();
+		}else {
+			throw new ResourceNotFoundException("Post", "id", id);
+		}
+		
+		//Post post = postRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Post", "id", id));
+		//return result;
 	}
 
 }

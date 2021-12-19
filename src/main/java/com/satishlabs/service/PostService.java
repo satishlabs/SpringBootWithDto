@@ -10,4 +10,8 @@ public interface PostService {
 	Post createPost(Post post);
 	
 	Post updatePost(long id,Post post);
+	
+	public void deletePost(long id);
+	
+	Post getPostById(long id);
 }
