@@ -29,7 +29,7 @@ public class PostController {
 	@Autowired
 	private PostService postService;
 
-	@GetMapping("/getPost")
+	@GetMapping("/getPosts")
 	public List<PostDto> getAllPosts(){
 		return postService.getAllPosts().stream().map(post -> modelMapper.map(post, PostDto.class)).collect(Collectors.toList());
 	}
