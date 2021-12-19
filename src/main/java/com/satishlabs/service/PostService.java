@@ -6,4 +6,6 @@ import com.satishlabs.model.Post;
 
 public interface PostService {
 	List<Post> getAllPosts();
+	
+	Post createPost(Post post);
 }
